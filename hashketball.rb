@@ -129,19 +129,34 @@ def game_hash
   }
 end
 
-def num_points_scored(player)
-  game_hash.each do |ho_aw,info| 
-    info.each do |team_id,stats| 
-      if team_id == :players
-        stats.each do |baller|
-          if baller[:player_name] == player
-            return baller[:points]
-          end
-        end
-      end
-    end
-  end
+def all_players
+  game_hash[:away][:players] + game_hash[:home][:players]
+  #a method returning a hash
 end
+
+def find_player_by_name(player_name)
+  found_player = all_players.find do |player_hash|
+    player == player_hash[:player_name]
+    end
+end
+
+def num_points_scored(player)
+  find_player_by_name(player)
+  #binding.pry
+end
+# def num_points_scored(player)
+#   game_hash.each do |ho_aw,info| 
+#     info.each do |team_id,stats| 
+#       if team_id == :players
+#         stats.each do |baller|
+#           if baller[:player_name] == player
+#             return baller[:points]
+#           end
+#         end
+#       end
+#     end
+#   end
+# end
 
 # def player_info(player) #this is a helper_method that access player data when name is typed
 #   game_hash.each do |hom_aw,info|
